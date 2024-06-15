@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="menu.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.0/dist/cdn.min.js"></script>
+    <script src="menu.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar" x-data>
+        <h1 class="title">Sora<span>Coffee.</span></h1>
+        <div class="barnav">
+          <li class="nav_li"><a href="/">Home</a></li>
+          <li class="nav_li"><a href="">Menu</a></li>
+          <li class="nav_li"><a href="#about">About</a></li>
+          <li class="nav_li"><a href="/contact/contact.html">Contact</a></li>
+        </div>
+        <div class="container-extra">
+          <a href="#" id="menu"><i data-feather="menu"></i></a>
+          <a href="#" id="cart">
+            <i data-feather="shopping-cart"></i><span class="jumlah-item" x-show="$store.cart.jumlah" x-text="$store.cart.jumlah"></span></a>
+        </div>
+        <div class="shopping-cart">
+          <template x-for="(item,index) in $store.cart.items" x-keys="index">
+          <div class="cart-item">
+            <img :src="`../menu image/${item.img}`" :alt="item.nama">
+            <div class="item-detail">
+              <h3 x-text="item.nama"></h3>
+              <div class="item-price"><span x-text="number(item.price)"></span></div>
+              &times;
+                      <button id="remove" @click="$store.cart.remove(item.id)">&minus;</button>
+                      <span x-text=item.jumlah></span>
+                      <button id="add" @click="$store.cart.add(item)">&plus;</button>&equals;
+                      <span x-text="item.total"></span>
+                    </div>
+                  </div>
+                </template> 
+                <h2 class="empty" x-show="!$store.cart.items.length">Cart Is Empty</h2>
+                <form x-show="$store.cart.items.length">
+                  <label for="nama">Nama</label><br />
+                  <input type="text" id="nama" nama="nama" /><br /> 
+                </form>
+                <h2 x-show="$store.cart.items.length">Total : <span x-text="number($store.cart.total)"></span></h2>
+                <button x-show="$store.cart.items.length">PESAN</button>
+                </div>
+      </nav>
+    </div>
+    <section class="menu-bar" x-data="product">
+      <div class="menu-title">
+        <h2>DAFTAR <span>MENU</span></h2>
+      </div>      <template x-for="(item,index) in  items" x-key="index">
+      <div class="menu-list">
+        <div class="menu-items">
+          <img :src="`../menu image/${item.img}`" :alt="item.nama">
+          <h2 x-text="item.nama"></h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur
+          doloribus doloremque ipsa.
+        </p>
+        <h3 x-text="number(item.price)"></h3>
+        <a href="" @click.prevent="$store.cart.add(item)">Beli</a>
+      </div>
+      </div>
+    </template>
+    </section>
+    <script>
+      feather.replace();
+    </script>
+    <script src="../script.js"></script>
+  </body>
+</html>
